@@ -12,7 +12,11 @@ export default class PostStatusFilter extends Component {
 	render() {
 		const buttons = this.buttons.map(({ name, label }) => {
 			const { filter, onFilterSelect } = this.props;
+
+			//значение filter приходит сюда из props, и если совпало с name, то active будет true, если не совпало - false
 			const active = filter === name;
+
+			//если active ==true, то clazz='btn-info', иначе clazz='btn-outline-secondary'
 			const clazz = active ? 'btn-info' : 'btn-outline-secondary';
 			return (
 				<button

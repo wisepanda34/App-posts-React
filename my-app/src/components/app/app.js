@@ -13,7 +13,7 @@ import './app.css';
 export default class App extends Component {
 	constructor(props) {
 		super(props);
-		// stateнапрямую менять нельзя, можно менять значения свойств в state
+		// state напрямую менять нельзя, можно менять значения свойств в state
 		this.state = {
 			data: [
 				{ label: 'Going to learn React', important: true, like: false, id: 1 },
@@ -36,7 +36,9 @@ export default class App extends Component {
 	};
 
 	deleteItem(id) {
+		//setState() перезаписывает состояние this.state,т.е. может менять его данные
 		this.setState(({ data }) => {
+
 			//находим позицию объекта в массиве data по id
 			const index = data.findIndex(elem => elem.id === id);
 
@@ -56,12 +58,13 @@ export default class App extends Component {
 			id: this.maxId++,
 		}
 		this.setState(({ data }) => {
-			const newArr = [...data, newItem];
+			const newArr = [newItem, ...data];
 			return {
 				data: newArr
 			}
 		})
 	}
+	// функция тозлит булиновое свойство important 
 	onToggleImportant(id) {
 		this.setState(({ data }) => {
 			const index = data.findIndex(elem => elem.id === id);
@@ -84,6 +87,8 @@ export default class App extends Component {
 			}
 		});
 	}
+
+	//функция вернет нам те посты, которые удовлетворяют набору символов (term) введенного пользователем 
 	searchPost(items, term) {
 		if (term.length === 0) {
 			return items;
@@ -93,7 +98,7 @@ export default class App extends Component {
 			return item.label.indexOf(term) > -1
 		})
 	}
-
+	//Эта функция вернет нам новый объект постов отфильтрованых по наличию лайков
 	filterPost(items, filter) {
 		if (filter === 'like') {
 			return items.filter(item => item.like)
@@ -101,11 +106,9 @@ export default class App extends Component {
 			return items
 		}
 	}
-
 	onUpdateSearch(term) {
 		this.setState({ term: term });
 	}
-
 	onFilterSelect(filter) {
 		this.setState({ filter: filter });
 	}
@@ -116,6 +119,7 @@ export default class App extends Component {
 		const liked = data.filter(item => item.like).length;
 		const allPosts = data.length;
 
+		//двойная фильтрация: сначала по term, потом по filter
 		const visiblePosts = this.filterPost(this.searchPost(data, term), filter);
 
 		return (

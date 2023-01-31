@@ -32,6 +32,7 @@ export default class PostListItem extends Component {
 					<button
 						type="button"
 						className='btn-trash btn-sm'
+						//вешаем клик на кнопку и получаем свойство onDelete, кот. отправляем выше в PostList
 						onClick={onDelete}>
 						<i className='fa fa-trash-o'></i>
 					</button>

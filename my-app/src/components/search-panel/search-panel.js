@@ -12,6 +12,8 @@ export default class SearchPanel extends Component {
 	onUpdateSearch(e) {
 		const term = e.target.value;
 		this.setState({ term: term });
+		//эта строка говорит, что мы передаем term в функцию onUpdateSearch() вверх в props App.js
+		//функции onUpdateSearch() и props.onUpdateSearch() для удобства одноименные, но не рекурсия
 		this.props.onUpdateSearch(term);
 	}
 
